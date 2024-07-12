@@ -48,7 +48,7 @@ def unauthorized_error(*_):
 
 @login_manager.user_loader
 def user_loader(user_id):
-    resp = remote.get('/api/userinfo')
+    resp = remote.get('/api/user')
     
     if resp.status == 401 or 500 < resp.status < 526:
         return User({"user_id": user_id})
@@ -118,7 +118,8 @@ def authorized():
     session['remote_oauth'] = (resp['access_token'], '')
 
     # Now that we have the token, try making a call to the Oauth provider API.
-    resp = remote.get('/api/userinfo')
+    resp = remote.get('/api/user')
+    print(remote.get('/api/user').data)
     
     login_user(User(resp.data))    
     
