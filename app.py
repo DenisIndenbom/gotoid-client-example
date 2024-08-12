@@ -74,7 +74,12 @@ def get_oauth_token():
 @app.route('/')
 @login_required
 def hello_world():
-    return f"""Hello World! <br> <br> User data: {current_user.get_data()}"""
+    profile = {}
+    profile['emial'] = remote.get('/api/email').data['email']
+    profile['telegram'] = remote.get('/api/telegram').data['telegram']
+    profile['avatar'] = remote.get('/api/avatar').data['avatar']
+    
+    return f"""Hello World! <br> <img src='{profile['avatar']}'> <br> <br> User data: {current_user.get_data()} <br> <br> {profile} <br>"""
 
 
 @app.route('/login')
