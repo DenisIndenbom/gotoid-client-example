@@ -79,7 +79,7 @@ def hello_world():
     profile['telegram'] = remote.get('/api/telegram').data['telegram']
     profile['avatar'] = remote.get('/api/avatar').data['avatar']
     
-    return f"""Hello World! <br> <img src='{profile['avatar']}'> <br> <br> User data: {current_user.get_data()} <br> <br> {profile} <br>"""
+    return f"""Hello World! <br> <img src='{profile['avatar']}'> <br> <br> User data: {current_user.get_data()} <br> <br\> {profile} <br>"""
 
 
 @app.route('/login')
