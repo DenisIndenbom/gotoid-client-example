@@ -33,7 +33,7 @@ remote = oauth.remote_app(
     'goto-app',
     consumer_key=os.environ.get('OAUTH_KEY'),
     consumer_secret=os.environ.get('OAUTH_SECRET'),
-    request_token_params={'scope': 'email roles'},
+    request_token_params={'scope': 'user email telegram avatar'},
     base_url=os.environ.get('OAUTH_HOST') + '/oauth/',
     authorize_url=os.environ.get('OAUTH_HOST') + '/oauth',
     access_token_url=os.environ.get('OAUTH_HOST') + '/oauth/token'
@@ -75,9 +75,13 @@ def get_oauth_token():
 @login_required
 def hello_world():
     profile = {}
-    profile['emial'] = remote.get('/api/email').data['email']
-    profile['telegram'] = remote.get('/api/telegram').data['telegram']
-    profile['avatar'] = remote.get('/api/avatar').data['avatar']
+    
+    try:    
+        profile['email'] = remote.get('/api/email').data['email']
+        profile['telegram'] = remote.get('/api/telegram').data['telegram']
+        profile['avatar'] = remote.get('/api/avatar').data['avatar']
+    except Exception as e:
+        return str(e)
     
     return f"""Hello World! <br> <img src='{profile['avatar']}'> <br> <br> User data: {current_user.get_data()} <br> <br\> {profile} <br>"""
 
