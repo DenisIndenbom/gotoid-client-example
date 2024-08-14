@@ -83,7 +83,7 @@ def hello_world():
     except Exception as e:
         return str(e)
     
-    return f"""Hello World! <br> <img src='{profile['avatar']}'> <br> <br> User data: {current_user.get_data()} <br> <br\> {profile} <br>"""
+    return f"""Hello World! <br> <br> <img src='{profile['avatar']}'> <br> <br> User data: {current_user.get_data()} <br> <br> Profile data: {profile} <br>"""
 
 
 @app.route('/login')
